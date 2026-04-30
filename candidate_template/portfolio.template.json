@@ -1,0 +1,15 @@
+{
+  "featured_work": [
+    {
+      "title": "Project or Case Study",
+      "problem": "What problem did this solve?",
+      "solution": "What did you build?",
+      "impact": "What was the result?",
+      "technologies": ["Technology 1", "Technology 2"],
+      "links": {
+        "live": "https://example.com",
+        "repo": "https://github.com/your-handle/example"
+      }
+    }
+  ]
+}

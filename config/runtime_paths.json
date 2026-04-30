@@ -1,0 +1,8 @@
+{
+  "reference_candidate_template": "C:/Projects/RESUMEGOD/candidate_template/candidate_profile.template.json",
+  "reference_folder": "C:/Projects/RESUMEGOD/candidate_template",
+  "template_path": "C:/Projects/RESUMEGOD/templates/base_resume_template.tex",
+  "runs_root": "/data/runs",
+  "preferred_latex_engine": "pdflatex",
+  "fallback_latex_engine": "latexmk"
+}

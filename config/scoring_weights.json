@@ -1,0 +1,15 @@
+{
+  "weights": {
+    "exact_skill_match": 0.3,
+    "semantic_relevance": 0.2,
+    "ats_keyword_overlap": 0.2,
+    "technical_depth": 0.15,
+    "recency": 0.1,
+    "measurable_impact": 0.05
+  },
+  "thresholds": {
+    "ats_pass_score": 90,
+    "max_review_cycles": 3,
+    "max_projects": 4
+  }
+}

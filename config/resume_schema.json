@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": ["basics", "summary", "experience", "projects", "education", "skills"],
+  "properties": {
+    "basics": {
+      "type": "object",
+      "required": ["name", "location", "email", "phone", "website", "linkedin", "github"],
+      "properties": {
+        "name": {"type": "string"},
+        "location": {"type": "string"},
+        "email": {"type": "string"},
+        "phone": {"type": "string"},
+        "website": {"type": "string"},
+        "linkedin": {"type": "string"},
+        "github": {"type": "string"}
+      }
+    },
+    "summary": {"type": "array", "items": {"type": "string"}},
+    "experience": {"type": "array"},
+    "projects": {"type": "array"},
+    "education": {"type": "array"},
+    "skills": {"type": "object"},
+    "certifications": {"type": "array", "items": {"type": "string"}}
+  }
+}

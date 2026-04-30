@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const args = Object.fromEntries(process.argv.slice(2).map((v,i,a)=>v.startsWith('--')?[v.slice(2),a[i+1]]:null).filter(Boolean));
+const runDir=args['run-dir'];
+let text='';
+const tex=path.join(runDir,'resume.tex');
+if(fs.existsSync(tex)) text=fs.readFileSync(tex,'utf8');
+const out=path.join(runDir,'rendered_resume_text.txt');
+fs.writeFileSync(out,text,'utf8');
+process.stdout.write(JSON.stringify({rendered_resume_text:out}));

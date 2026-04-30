@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\pagenumbering{gobble}
+\newcommand{\sectionline}{\vspace{3pt}\hrule\vspace{5pt}}
+\newcommand{\resheading}[1]{\textbf{\large #1}\sectionline}
+\newcommand{\entryheader}[3]{\textbf{#1} \hfill #2\\\textit{#3}}
+
+\begin{document}
+
+{\LARGE \textbf{<<NAME>>}}\\
+<<LOCATION>> \textbar\ \href{mailto:<<EMAIL>>}{<<EMAIL>>} \textbar\ <<PHONE>>\\
+\href{<<WEBSITE>>}{<<WEBSITE>>} \textbar\ \href{<<LINKEDIN>>}{LinkedIn} \textbar\ \href{<<GITHUB>>}{GitHub}
+
+\resheading{Summary}
+<<SUMMARY_BLOCK>>
+
+\resheading{Experience}
+<<EXPERIENCE_BLOCK>>
+
+\resheading{Projects}
+<<PROJECTS_BLOCK>>
+
+\resheading{Education}
+<<EDUCATION_BLOCK>>
+
+\resheading{Skills}
+<<SKILLS_BLOCK>>
+
+<<CERTIFICATIONS_BLOCK>>
+
+\vfill
+{\footnotesize Last updated: <<UPDATED_AT>>}
+
+\end{document}

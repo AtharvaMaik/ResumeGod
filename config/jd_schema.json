@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": [
+    "role_title",
+    "company",
+    "seniority",
+    "location",
+    "domain",
+    "responsibilities",
+    "required_skills",
+    "preferred_skills",
+    "ats_keywords",
+    "constraints",
+    "inferred_signals"
+  ],
+  "properties": {
+    "role_title": {"type": ["string", "null"]},
+    "company": {"type": ["string", "null"]},
+    "seniority": {"type": ["string", "null"]},
+    "location": {"type": ["string", "null"]},
+    "domain": {"type": ["string", "null"]},
+    "responsibilities": {"type": "array", "items": {"type": "string"}},
+    "required_skills": {"type": "array", "items": {"type": "string"}},
+    "preferred_skills": {"type": "array", "items": {"type": "string"}},
+    "ats_keywords": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "inferred_signals": {"type": "array", "items": {"type": "object"}}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "username": "your-handle",
+  "top_repositories": [
+    {
+      "name": "repo-name",
+      "description": "Short description of the project.",
+      "highlights": [
+        "What makes this repository relevant to hiring managers.",
+        "Any meaningful signals: stars, usage, complexity, or ownership."
+      ]
+    }
+  ],
+  "contribution_highlights": [
+    "Open-source contributions, issue triage, or notable collaboration work."
+  ]
+}

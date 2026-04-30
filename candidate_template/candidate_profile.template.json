@@ -1,0 +1,54 @@
+{
+  "name": "Your Name",
+  "title": "Target Role",
+  "location": "City, Country",
+  "email": "you@example.com",
+  "phone": "+00 00000 00000",
+  "linkedin": "https://www.linkedin.com/in/your-handle",
+  "github": "https://github.com/your-handle",
+  "website": "https://your-site.dev",
+  "summary": "Two to three lines describing your background, strengths, and target opportunities.",
+  "education": [
+    {
+      "institution": "University Name",
+      "degree": "Degree Name",
+      "start_date": "2022",
+      "end_date": "2026",
+      "details": [
+        "Relevant coursework, GPA, honors, scholarships, or academic achievements."
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Company Name",
+      "role": "Role Title",
+      "start_date": "2025-01",
+      "end_date": "2025-04",
+      "bullets": [
+        "Action-oriented bullet with a concrete outcome.",
+        "Another bullet with a real metric, scope, or ownership area."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Project Name",
+      "stack": ["React", "Node.js", "PostgreSQL"],
+      "bullets": [
+        "What the project does and why it matters.",
+        "Impact, scale, optimization, or measurable result."
+      ],
+      "links": {
+        "repo": "https://github.com/your-handle/project",
+        "demo": "https://project-demo.dev"
+      }
+    }
+  ],
+  "skills": {
+    "languages": ["JavaScript", "TypeScript", "Python"],
+    "frameworks": ["React", "Next.js", "Express"],
+    "tools": ["Git", "Docker", "Postman"],
+    "databases": ["PostgreSQL", "MongoDB"]
+  }
+}

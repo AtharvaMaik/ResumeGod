@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume God</title>
+  <style>
+    :root { --bg:#f7f4ef; --card:#fffdf8; --ink:#1f1f1f; --muted:#666; --accent:#d45500; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: "Segoe UI", Tahoma, sans-serif; background: radial-gradient(circle at top right,#ffe3c6,var(--bg)); color:var(--ink); }
+    .wrap { max-width: 760px; margin: 40px auto; padding: 20px; }
+    .card { background: var(--card); border: 1px solid #e9dccd; border-radius: 14px; padding: 22px; box-shadow: 0 12px 28px rgba(0,0,0,.05); }
+    h1 { margin: 0 0 10px; }
+    p { margin: 0 0 18px; color: var(--muted); }
+    label { display:block; font-weight:600; margin: 14px 0 8px; }
+    input, button { width:100%; padding:12px; border-radius:10px; border:1px solid #d7c5b0; font-size:15px; }
+    button { margin-top:16px; border:none; background: var(--accent); color:white; font-weight:700; cursor:pointer; }
+    button:disabled { opacity:.6; cursor:not-allowed; }
+    .result { margin-top:16px; padding:12px; border-radius:10px; background:#fff8f0; border:1px solid #f3ddc6; }
+    .ok { color:#1b7f2a; }
+    .err { color:#b42318; }
+    .progress { margin-top: 14px; padding: 12px; border-radius: 10px; background:#fff; border:1px solid #eadfce; }
+    .step { display:flex; gap:8px; align-items:center; margin:6px 0; color:#444; }
+    .dot { width:10px; height:10px; border-radius:50%; background:#d0d0d0; display:inline-block; }
+    .done .dot { background:#1b7f2a; }
+    .done { color:#1b7f2a; }
+    a { color:#0e5ac7; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Resume God</h1>
+      <p>Upload a JD PDF and generate a tailored resume. Output is saved to local <code>output/</code>.</p>
+      <form id="form">
+        <label>Company Name</label>
+        <input name="company_name" placeholder="e.g., Google" required />
+        <label>Job Description PDF</label>
+        <input type="file" name="jd_pdf" accept="application/pdf" required />
+        <button id="submitBtn" type="submit">Generate Resume</button>
+      </form>
+      <div id="result"></div>
+      <div id="progress"></div>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('form');
+    const result = document.getElementById('result');
+    const progress = document.getElementById('progress');
+    const submitBtn = document.getElementById('submitBtn');
+    let progressTimer = null;
+
+    function renderProgress(status) {
+      const steps = status.steps || [];
+      const html = steps.map(s => `<div class="step ${s.done ? 'done' : ''}"><span class="dot"></span><span>${s.label}</span></div>`).join('');
+      progress.innerHTML = `<div class="progress"><strong>Run Progress</strong>${html}${status.compileError ? `<div class="err" style="margin-top:8px;">Compile hint: ${status.compileError}</div>` : ''}</div>`;
+    }
+
+    async function pollStatus(requestId, companyName) {
+      const qs = new URLSearchParams({ company: companyName });
+      const url = `/status/${encodeURIComponent(requestId)}?${qs.toString()}`;
+      const r = await fetch(url);
+      const j = await r.json();
+      renderProgress(j);
+      const done = j.steps?.find(s => s.key === 'final')?.done;
+      return !!done;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      result.innerHTML = '<div class="result">Running workflow, this may take a minute...</div>';
+      progress.innerHTML = '';
+      const fd = new FormData(form);
+      const companyName = fd.get('company_name');
+      try {
+        const r = await fetch('/run', { method: 'POST', body: fd });
+        const j = await r.json();
+        if (!r.ok) {
+          if (j.request_id) {
+            const requestId = j.request_id;
+            progressTimer = setInterval(async () => {
+              try {
+                const done = await pollStatus(requestId, companyName);
+                if (done) clearInterval(progressTimer);
+              } catch {}
+            }, 2500);
+          }
+          throw new Error(j.error || 'Request failed');
+        }
+        if (j.request_id) {
+          await pollStatus(j.request_id, companyName);
+        }
+        result.innerHTML = `<div class="result ok">Done.<br>Request ID: ${j.request_id}<br>Status: ${j.status}<br>ATS: ${j.ats_score ?? 'N/A'}${j.best_score != null ? ` (best ${j.best_score})` : ''}<br>Saved: ${j.output_file}<br><a href="${j.download_url}">Download PDF</a></div>`;
+      } catch (err) {
+        result.innerHTML = `<div class="result err">${err.message}</div>`;
+      } finally {
+        if (progressTimer) clearInterval(progressTimer);
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
